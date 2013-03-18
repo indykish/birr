@@ -10,7 +10,7 @@ RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = 'spec/**/*_spec.rb'
 end
 
-gem_spec = eval(File.read("Birr.gemspec"))
+gem_spec = eval(File.read("birr.gemspec"))
 
 Gem::PackageTask.new(gem_spec) do |pkg|
   pkg.gem_spec = gem_spec
@@ -35,7 +35,7 @@ end
 
 RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "Birr #{gem_spec.version}"
+  rdoc.title = "birr #{gem_spec.version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

@@ -2,11 +2,11 @@ $:.unshift File.expand_path("../lib", __FILE__)
 require "megam/version"
 
 Gem::Specification.new do |gem|
-  gem.name = "Birr"
+  gem.name = "birr"
   gem.version = Megam::VERSION
   gem.author = "Kishore"
   gem.email = "nkishore@megam.co.in"
-  gem.homepage = %q{http://github.com/indykish/Birr}  
+  gem.homepage = %q{http://github.com/indykish/birr}  
   gem.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Uniquify", "--main", "README.rdoc"]  
   gem.summary = "A DSL - CLI which eases setting up your workstation from a clean state."
   gem.description = "Command-line tool to setup your work area quickly and easily. Automate the repetitive steps that you would use to install. Read http://blog.megam.co/archives/485"
@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.extra_rdoc_files = ["README.md", "LICENSE" ]
   gem.post_install_message = <<-MESSAGE
 ! The `Birr` gem has been installed. 
-! To run it, setup your work_area, and run Birr -i <workarea>/install.rb.
+! To run it, setup your work_area, and run birr -i <workarea>/install.rb.
 ! For detail instructions : https://github.com/indykish/Birr.git
 MESSAGE
 
@@ -31,7 +31,7 @@ MESSAGE
   %w(rspec-core rspec-expectations rspec-mocks).each { |s| gem.add_development_dependency s, ">= 2.13.0" }
 
   gem.bindir = "bin"
-  gem.executables = %w( Birr )
+  gem.executables = %w( birr )
 
   gem.require_path = 'lib'
   gem.files = %w(Rakefile LICENSE README.md) + Dir.glob("{lib,tasks,spec}/**/*")
