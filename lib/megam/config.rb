@@ -38,7 +38,7 @@ class Megam
     # * :warn
     # * :fatal
     # These work as you'd expect. There is also a special `:auto` setting.
-    # When set to :auto, Meggy will auto adjust the log verbosity based on
+    # When set to :auto, Birr will auto adjust the log verbosity based on
     # context. When a tty is available (usually becase the user is running meggy
     # in a console), the log level is set to :warn, and output formatters are
     # used as the primary mode of output. When a tty is not available, the

@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 require "megam/core/text"
-require "megam/dude"
+require "megam/birr"
 
 class Megam::CmdVerb
   
@@ -30,7 +30,6 @@ class Megam::CmdVerb
     cp << opts[:from_dir] if opts[:from_dir] or raise Megam::Exceptions::FileNotFound
     cp << " "
     cp << opts[:to_dir] if opts[:to_dir] or raise Megam::Exceptions::FileNotFound
-    Megam::Dude.text.info(Megam::Dude.text.color("$      :", :blue) + cp)
     cp
   end
   
@@ -40,8 +39,6 @@ class Megam::CmdVerb
     untar << opts[:tar_file] if opts[:tar_file] 
     untar << " | tar xvf - -C "
     untar << opts[:to_dir] if opts[:to_dir]
-    Megam::Dude.text.info(Megam::Dude.text.color("$      :", :blue) + untar)
-    sleep 7
     untar    
   end
 

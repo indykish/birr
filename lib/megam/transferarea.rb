@@ -13,8 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 require "megam/core/text"
-require "megam/dude"
+require "megam/birr"
 
+# class responsible for converting "you", "root" to the correct directories.
+# This is not a good way to do so.
 class Megam::TransferArea
   
   def self.convert_to_transferarea_dir(transferarea_name)

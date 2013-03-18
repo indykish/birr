@@ -13,9 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 require "megam/core/text"
-require "megam/dude"
+require "megam/birr"
 require "megam/workarea_loader"
 
+# a class which manages the work area, ie find the files in workarea, packaging script in it.
 class Megam::WorkArea
 
   attr_accessor :del_if_exists
@@ -43,7 +44,7 @@ class Megam::WorkArea
   #Lists all the files under the dir
   def find_files_via_dirglob(i_dir)
     dir_files = {}
-    Megam::Dude.text.info(Megam::Dude.text.color("GLOB :", :green, :bold) + "#{i_dir}")
+    Megam::Birr.text.info(Megam::Birr.text.color("GLOB :", :green, :bold) + "#{i_dir}")
     if Dir.exists?(i_dir)
       dir_files[i_dir] = Dir.glob("#{i_dir}/**/*")
     end
@@ -67,7 +68,7 @@ class Megam::WorkArea
     missing_install_dir = nil
 
     if missing_install_dir = !(WORKAREA_PRECONFIG_DIRS.find {|wai| wai == i_dir} )
-      Megam::Dude.text.fatal("Cannot find workarea install dir  for: '#{i_dir}'")
+      Megam::Birr.text.fatal("Cannot find workarea install dir  for: '#{i_dir}'")
       exit 10
     end
     missing_install_dir

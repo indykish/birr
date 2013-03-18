@@ -16,7 +16,8 @@
 require 'pp'
 require 'megam/core/text'
 
-class Megam::Dude
+#Main entry for the command line, after validating the class, run the install_file
+class Megam::Birr
 
   attr_accessor :text
   attr_accessor :config
@@ -36,42 +37,44 @@ class Megam::Dude
   def initialize()
   end
 
-  # Run dude for the given +args+ (ARGV), adding +options+ to the list of
+  # Run Birr for the given +args+ (ARGV), adding +options+ to the list of
   # CLI options that the subcommand knows how to handle.
   # ===Arguments
   # args::: usually ARGV
   # options::: A Mixlib::CLI option parser hash. These +options+ are how
-  # subcommands know about global dude CLI options
+  # subcommands know about global Birr CLI options
   def run(args=[], config={})
     @config = config.dup
     @text ||= Megam::Text.new(STDOUT, STDERR, STDIN, config)
-    # configure your dude.
-    configure_dude
-
+    # configure your Birr.
+    configure_birr
   end
 
-  # configure meggy, to startwith locate the config file under .meggy/dude.rb
-  # Once located, read the dude.rb config file. parse them, and report any ruby syntax errors.
+  # configure meggy, to startwith locate the config file under .meggy/Birr.rb
+  # Once located, read the Birr.rb config file. parse them, and report any ruby syntax errors.
   # if not merge then inside Meggy::Config object.
-  def configure_dude
+  def configure_birr
+    # look for a .birr/birr.rb for configuration. Not used currently.
     unless config[:install_file]
       locate_install_file
     end
-    # Don't try to load a dude.rb if it doesn't exist.
+    
+    # Now load the installation file provided as input {-i} parm.
     if config[:install_file]
-      Megam::Log.debug("Using configuration from #{config[:install_file]}")
+      @text.info "Using #{config[:install_file]}"
       apply_computed_config
       read_config_file(config[:install_file])
     else
-      text.warn("No dude configuration file found")
+      text.warn("No birr configuration file found")
     end
 
   end
 
   def locate_install_file
-    # Look for $HOME/.meggy/dude.rb
+    # Look for $HOME/.meggy/birr.rb, this aint' supported currently
+    # the idea is to allow configuration of the options used here.
     if ENV['HOME']
-      user_config_file =  File.expand_path(File.join(ENV['HOME'], '.meggy', 'install.rb'))
+      user_config_file =  File.expand_path(File.join(ENV['HOME'], '.birr', 'birr.rb'))
     end
 
     if File.exist?(user_config_file)
@@ -103,7 +106,8 @@ class Megam::Dude
     
   end
 
-  # reads all the config from the .meggy/dude.rb and stores it inside Meggy::Config
+  # load the content as provided in -i {installation_file}
+  # ruby errors get reported or else the file is executed.
   def read_config_file(file)
     self.instance_eval(IO.read(file), file, 1)
   rescue SyntaxError => e
@@ -127,14 +131,14 @@ class Megam::Dude
     exit 1
     end
 
-  #ERROR: You have invalid ruby syntax in your config file /home/ram/.meggy/dude.rb
-  #/home/ram/.meggy/dude.rb:9: syntax error, unexpected '='
-  #dude[:username] > = "admin"
+  #ERROR: You have invalid ruby syntax in your config file /home/ram/.meggy/Birr.rb
+  #/home/ram/.meggy/Birr.rb:9: syntax error, unexpected '='
+  #Birr[:username] > = "admin"
   #                  ^
-  # # /home/ram/.meggy/dude.rb
+  # # /home/ram/.meggy/Birr.rb
   #  8: meggy_server_url          'http://localhost:6167'
-  #  9: dude[:username] > = "admin"
-  # 10: dude[:password] = "team4dog"
+  #  9: Birr[:username] > = "admin"
+  # 10: Birr[:password] = "team4dog"
   # Line 9 is marked in red, and the 3rd line where the error is show is highlighted in red.
   #This is in case of a ruby parse error.
   def highlight_config_error(file, line)

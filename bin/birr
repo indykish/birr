@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 #
-# ./dude - A DSL for automated work area setup for an organization
+# birr - A DSL for setting up automated work area setup for an organization
+# usually these are handled using shell scripts, but a DSL really solves the need
+# with dynamic flexible scripting.
 #
 # License:: Apache License, Version 2.0
 #
@@ -24,9 +26,10 @@ bin_file = Pathname.new(__FILE__).realpath
 
 # add self to libpath
 $:.unshift File.expand_path("../../lib", bin_file)
+require 'birr'
 require 'megam/app'
 
-# Run our dude dude.!
+# Run our birr dude.!
 Megam::App.new.run
 
 

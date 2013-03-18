@@ -10,7 +10,7 @@ RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = 'spec/**/*_spec.rb'
 end
 
-gem_spec = eval(File.read("dude.gemspec"))
+gem_spec = eval(File.read("Birr.gemspec"))
 
 Gem::PackageTask.new(gem_spec) do |pkg|
   pkg.gem_spec = gem_spec
@@ -30,12 +30,12 @@ end
 
 desc "remove build files"
 task :clean do
-  sh %Q{ rm -f pkg/*.gem }
+  sh %Q{ rm -r pkg }
 end
 
 RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "dude #{gem_spec.version}"
+  rdoc.title = "Birr #{gem_spec.version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

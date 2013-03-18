@@ -15,11 +15,7 @@
 
 require 'pp'
 require 'megam/config'
-require 'megam/core/exceptions'
-require 'megam/core/log'
-require 'megam/core/text'
-require 'megam/dude'
-require 'megam/version'
+require 'megam/birr'
 require 'mixlib/cli'
 require 'tmpdir'
 require 'rbconfig'
@@ -29,9 +25,9 @@ class Megam::App
   #include(a_module) is called inside a class, and adds module methods as instance methods.
   #extend(a_module) adds all module methods to the instance it is called on.
 
-  NO_COMMAND_GIVEN = "You need to pass a command with option (e.g., dude -i <install_path>)\n"
+  NO_COMMAND_GIVEN = "You need to pass a command with option (e.g., birr -i <install_path>)\n"
 
-  banner "Usage: dude (options)"
+  banner "Usage: birr (options)"
 
   option :install_file,
     :short => "-i INSTALL",
@@ -65,9 +61,9 @@ class Megam::App
   option :version,
     :short        => "-v",
     :long         => "--version",
-    :description  => "Show dude version",
+    :description  => "Show birr version",
     :boolean      => true,
-    :proc         => lambda {|v| puts "Dude: #{::Megam::VERSION}"},
+    :proc         => lambda {|v| puts "Birr: #{::Megam::VERSION}"},
     :exit         => 0
 
   #attr_accessors are setters/getters in ruby.  The arguments are filtered and available for use
@@ -99,15 +95,14 @@ class Megam::App
 
   end
 
-  # Run the "dude app". Let it roam and stay by our side.[Go dude..Does it remind of the Hutch adv.].
+  # Run the "birr app". Let it roam and stay by our side.[Go birr..Does it remind of the Hutch adv.].
   # The first thing run does is it parses the options. Once the first level of parsing is done,
   # ie the help, no_command, sub_command entry is verified it proceeds to call
-  # Megam_Pug with the user entered options and arguments (ARGV)
+  # Megam_Birr with the user entered options and arguments (ARGV)
   def run
     Mixlib::Log::Formatter.show_time = false
     validate_and_parse_options
-    # As you see here the run method is a self method (static), hence the i@nitialize in
-    Megam::Dude.new.run(@named_args, config)    
+    Megam::Birr.new.run(@named_args, config)
     exit 0
   end
 
@@ -119,14 +114,11 @@ class Megam::App
     exit(1)
     end
 
-  ##A few private helper methods being used by the subclasses of app and by app itself.
+  ##A few private helper methods being used by app itself.
   ##If you run an application for ever, you might pool all the executions and gather the stacktrace.
-  ##There are no long running application currently.
-  ##Rightnow the fatal method is used by app internally above.
   private
 
-  # A check is performed to see of the command is entered, if a sub command exists, #
-  # a version request or a help request.
+  # A check is performed to see if an option is entered, help or version
   def validate_and_parse_options
     # Checking ARGV validity *before* parse_options because parse_options
     # mangles ARGV in some situations
@@ -157,23 +149,18 @@ class Megam::App
   end
 
   # Print the help message with the exit code.  If no command is given, then a fatal message is printed.
-  # The options are parsed by calling the parse_options present in the mixlib cli as extended by the super class app.
+  # The options are parsed by calling the parse_options present in the mixlib cli as extended by the app.
   # A error gets caught and results in an ugly stack trace, which probably needs to be shown in an elegant way.
-  # The stacK should be logged using the debug_stacktrace method in the super class.
+  # The stacK should be logged using the debug_stacktrace method in the app class.
   def print_help_and_exit(exitcode=1, fatal_message=nil)
     Megam::Log.error(fatal_message) if fatal_message
-    #    begin
     parse_options(ARGV)
-    #    rescue OptionParser::InvalidOption => e
-    #      puts "#{e}\n"
-    #    end
-    puts self.opt_parser
     exit exitcode
   end
 
   class << self
     #The exception in ruby carries the class, message and the trace.
-    #http://www.ruby-doc.org/core-1.9.3/Exception.html
+    #http://www.ruby-doc.org/core-2.0/Exception.html
     def debug_stacktrace(e)
       message = "#{e.class}: #{e}\n#{e.backtrace.join("\n")}"
       megam_stacktrace_out = "Generated at #{Time.now.to_s}\n"

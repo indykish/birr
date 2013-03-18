@@ -1,11 +1,12 @@
 require 'hashie'
-
+# loads the workarea into keys/value eg: package/rails => ~/<your_install_file_dir>/package/rails
 class Megam
   class WorkAreaLoader
 
     attr_reader :workarea_preconfig # a hash the preconfig mapping eg: you => ~/megam_install/you
     attr_reader :workarea_by_name   # a Mash, indexed on name.
     attr_reader :workarea_paths
+    
  include Enumerable
     
     def initialize(*workarea_repo_paths)

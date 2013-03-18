@@ -1,6 +1,8 @@
-# Dude
+# Birr
 
-Dude is a DSL in ruby which helps to painfully ease your migration of workstation or clean installs.
+Birr is a DSL in ruby which helps to painfully ease setting up of your workstation from a clean state.
+You can create dynamic scripting at a rapid pace.
+
 `Credit` goes to `github.com/opscode/chef` for providing code to build CLI's faster. 
 
 This uses mixlib-cli, mixlib-config, mixlib-log, mixlib-auth.
@@ -10,38 +12,35 @@ This uses mixlib-cli, mixlib-config, mixlib-log, mixlib-auth.
 Ruby 2.0.0.p0 preferred; 1.9.3+ required 
 
 
-#### Runtime Rubygem Dependencies
+#### Platforms
 
-First you'll need [bundler](http://github.com/carlhuda/bundler) which can
-be installed with a simple `gem install bundler`. Afterwords, do the following:
+`*linux` platform. Extensively tested on `Ubuntu 12.10, 13.04` & `Ruby 2.0`
 
-    bundle install
-
-### Installing Dude
+### Installing Birr
 
 You can use this gem by putting the following inside your Gemfile:
 
-    gem install dude
+    gem install Birr
 
 
 ### Commands
 
 ```ruby
-	Dude	-h
-	Usage: dude (options)
+	Birr	-h
+	Usage: Birr (options)
     -i, --install INSTALL            The installation file path to use (required)
     -V, --verbose                    More verbose output. Use twice for max verbosity
-    -v, --version                    Show dude version
+    -v, --version                    Show Birr version
     -y, --yes                        Say yes to all prompts for confirmation
     -h, --help                       Show this message
 ```
 
 ## Usage
 
-## Conventions
+### Conventions
 
-> you  : This is your Home directory
-> root : This is your Root directory
+> you  : This is your Home directory and is figured out from the ENV[HOME] variable
+> root : This is your Root directory, defaults to '/'
 
 ### Prepare your work area
 
@@ -50,11 +49,15 @@ Let us say you want to clone the current system and install the same in system X
 
  > Create a backup directory
  > Create a dsl in ruby named dsl.rb. You can call it the way you want.
- > Run dude. as follows, assuming that your backup directory resides in ~, where ~ is your <home>
+ > Run Birr. as follows, assuming that your backup directory resides in ~, where ~ is your <home>
 
 ```
-  dude -i ~\backup\dsl.rb
+  Birr -i ~\backup\dsl.rb
+  
 ```
+### What goes into your backup\ directory 
+
+This is a sample.
 
 ```
  backup\
@@ -79,7 +82,7 @@ Let us say you want to clone the current system and install the same in system X
    |
    *-------you\bin\software\apache\tomcat.tar.gz
 ```
-### Creating your DSL
+### Creating your DSL [dsl.rb]
 
 ```ruby
    
@@ -110,14 +113,36 @@ end
 ```
 
 ### Packaging a gem
-There is a rake task which let us to build a GEM and test it locally. [How to package a gem](http://rubylearning.com/blog/how-do-i-create-and-publish-my-first-ruby-gem/) seems to be a pretty good link.
+There is a rake task which let us to build a GEM and test it locally. 
+[How to package a gem](http://rubylearning.com/blog/how-do-i-create-and-publish-my-first-ruby-gem/) 
+seems to be a pretty good link.
+
+```ruby
+cd Birr
+
+rake clean
+
+rm -r pkg
+
+rake package
+
+gem push Birr-<VERSION>.gem
+
+```
+
 
 ### Warning :
 Read my [blog.megam.co](http://blog.megam.co/archives/485) for more info.
 
+TO-DO : > A shell command timesout and causes the program to exit pre-maturely.
+        > Looking for a better replacement to mixlib-shell, which allows the stdouts to be shown as and when it arrives.
+        > Support for more levels of when the directory is referenced (eg: you.software.apache)
+        > Synch to a network
+        > Integration with backup utilities
+          
 # License
 
-Dude - A toolset to ease workstation installs.
+Birr - A toolset to ease repetitive workstation installs.
 Read the [blog.megam.co](http://blog.megam.co/archives/485) for more info.
 
 |                      |                                          |

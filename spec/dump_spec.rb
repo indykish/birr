@@ -1,17 +1,17 @@
-require 'megam/dude'
+require 'megam/Birr'
 require 'yaml'
 
 
-describe "RSPEC for Dude help" do
+describe "RSPEC for Birr help" do
 
-  it "Dude new" do
-  @id = Megam::Dude.new
+  it "Birr new" do
+  @id = Megam::Birr.new
   @id.run.should raise_error()
   end
 
 
-  it "Dude new" do
-  @id = Megam::Dude.new
+  it "Birr new" do
+  @id = Megam::Birr.new
   @id.run.should raise_error()
   end
 

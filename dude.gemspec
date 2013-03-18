@@ -2,19 +2,20 @@ $:.unshift File.expand_path("../lib", __FILE__)
 require "megam/version"
 
 Gem::Specification.new do |gem|
-  gem.name = "dude"
+  gem.name = "Birr"
   gem.version = Megam::VERSION
   gem.author = "Kishore"
   gem.email = "nkishore@megam.co.in"
-  gem.homepage = "http://megam.co/"
-  gem.summary = "CLI to automate setting up workarea."
+  gem.homepage = %q{http://github.com/indykish/Birr}  
+  gem.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Uniquify", "--main", "README.rdoc"]  
+  gem.summary = "A DSL - CLI which eases setting up your workstation from a clean state."
   gem.description = "Command-line tool to setup your work area quickly and easily. Automate the repetitive steps that you would use to install. Read http://blog.megam.co/archives/485"
   gem.license = "Apache V2"
   gem.extra_rdoc_files = ["README.md", "LICENSE" ]
   gem.post_install_message = <<-MESSAGE
-! The `dude` gem has been installed. 
-! To run it, setup your work_area, and run dude -i <workarea>/install.rb.
-! For detail instructions : https://github.com/indykish/dude.git
+! The `Birr` gem has been installed. 
+! To run it, setup your work_area, and run Birr -i <workarea>/install.rb.
+! For detail instructions : https://github.com/indykish/Birr.git
 MESSAGE
 
   gem.add_dependency "mixlib-config", ">= 1.1.2"
@@ -30,7 +31,7 @@ MESSAGE
   %w(rspec-core rspec-expectations rspec-mocks).each { |s| gem.add_development_dependency s, ">= 2.13.0" }
 
   gem.bindir = "bin"
-  gem.executables = %w( dude )
+  gem.executables = %w( Birr )
 
   gem.require_path = 'lib'
   gem.files = %w(Rakefile LICENSE README.md) + Dir.glob("{lib,tasks,spec}/**/*")

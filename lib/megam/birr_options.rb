@@ -1,7 +1,11 @@
+#The birr options class takes the block in the initialize method.
+#it uses the custom attr_accessors, namely (setter, varargs_setters) to 
+#inject the value by defining methods with the dsl defined ones.
+#
 class Megam
-  class DudeOptions
+  class BirrOptions
     def self.setter(*method_names)
-       method_names.each do |name|
+      method_names.each do |name|
         send :define_method, name do |data|
           instance_variable_set "@#{name}".to_sym, data
         end
@@ -18,7 +22,7 @@ class Megam
 
     setter :sudo, :start_time, :tarball
     varargs_setter :directory, :command
-    attr_reader :commands
+    attr_reader :commands, :sudo
 
     def initialize(&block)
       # defaults
@@ -26,20 +30,20 @@ class Megam
       @sudo            = false
       @directory       = []
       @command         = []
-      @commands        = [] 
+      @commands        = []
       @start_time      = Time.now
       instance_eval(&block)
 
     end
-    
+
     def commands
       @commands = @command.flatten if @command
     end
-    
+
     def sudo?
-    @sudo
+      @sudo
     end
-    
+
     def tarball_file
       @tarball_file ||= @tarball
     end
