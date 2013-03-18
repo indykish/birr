@@ -109,6 +109,9 @@ class DSL
 end                     
 ```
 
+### Packaging a gem
+There is a rake task which let us to build a GEM and test it locally. [How to package a gem](http://rubylearning.com/blog/how-do-i-create-and-publish-my-first-ruby-gem/) seems to be a pretty good link.
+
 ### Warning :
 Read my [blog.megam.co](http://blog.megam.co/archives/485) for more info.
 

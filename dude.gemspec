@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.email = "nkishore@megam.co.in"
   gem.homepage = "http://megam.co/"
   gem.summary = "CLI to automate setting up workarea."
-  gem.description = "Command-line tool to setup your work area quickly and easily. Automate the repetitive steps that you would use to install."
+  gem.description = "Command-line tool to setup your work area quickly and easily. Automate the repetitive steps that you would use to install. Read http://blog.megam.co/archives/485"
   gem.license = "Apache V2"
   gem.extra_rdoc_files = ["README.md", "LICENSE" ]
   gem.post_install_message = <<-MESSAGE
