@@ -60,7 +60,8 @@ Let us say you want to clone the current system and install the same in system X
  > Create a dsl in ruby named dsl.rb. You can call it the way you want.
  > Run Birr. as follows, assuming that your backup directory resides in ~, where ~ is your <home>
 
-```  Birr -i ~\backup\dsl.rb  
+```  
+Birr -i ~\backup\dsl.rb  
 ```
 ### What goes into your backup\ directory 
 
