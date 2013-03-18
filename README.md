@@ -18,9 +18,9 @@ Ruby 2.0.0.p0 preferred; 1.9.3+ required
 
 ### Installing Birr
 
-You can use this gem by putting the following inside your Gemfile:
+You can use this gem by running :
 
-    gem install Birr
+    gem install birr
 
 
 ### Commands
@@ -42,6 +42,15 @@ You can use this gem by putting the following inside your Gemfile:
 > you  : This is your Home directory and is figured out from the ENV[HOME] variable
 > root : This is your Root directory, defaults to '/'
 
+The directory can be given as
+
+let us say your `ENV[HOME]` is `/home/ram` 
+
+	> `you`      means ~      (or) `/home/ram` 
+	> `you.bin'  means ~/bin  (or) `/home/ram/bin`
+
+You have noticed above that the File::SEPARATOR is "." and its gets converted by `birr` automagically.
+
 ### Prepare your work area
 
 Let us say you want to clone the current system and install the same in system X.
@@ -51,9 +60,7 @@ Let us say you want to clone the current system and install the same in system X
  > Create a dsl in ruby named dsl.rb. You can call it the way you want.
  > Run Birr. as follows, assuming that your backup directory resides in ~, where ~ is your <home>
 
-```
-  Birr -i ~\backup\dsl.rb
-  
+```  Birr -i ~\backup\dsl.rb  
 ```
 ### What goes into your backup\ directory 
 
@@ -82,7 +89,7 @@ This is a sample.
    |
    *-------you\bin\software\apache\tomcat.tar.gz
 ```
-### Creating your DSL [dsl.rb]
+### Creating your own DSL [dsl.rb]
 
 ```ruby
    
@@ -113,6 +120,7 @@ end
 ```
 
 ### Packaging a gem
+
 There is a rake task which let us to build a GEM and test it locally. 
 [How to package a gem](http://rubylearning.com/blog/how-do-i-create-and-publish-my-first-ruby-gem/) 
 seems to be a pretty good link.
@@ -127,7 +135,6 @@ rm -r pkg
 rake package
 
 gem push Birr-<VERSION>.gem
-
 ```
 
 
